@@ -6,12 +6,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to my Laurie's React App</h2>
-          <img src={logo} className="App-logo" alt="logo" />
-        </div>
-
+          <h1>Product Management</h1>
+          <h1>Please Login to continue</h1>
+          <h1>P.S. username: john.doe</h1>
+          <h1>password: password</h1>
       </div>
     );
   }
