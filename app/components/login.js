@@ -48,7 +48,7 @@ class Login extends React.Component {
         e.preventDefault();
         var credentialsValid = this.state.validUsers.filter(function (user) {
             return user.email === this.state.email && user.password === this.state.password;
-        }).length > 0;
+        }.bind(this)).length > 0;
 
         if (credentialsValid) {
             this.props.history.push('/products')
