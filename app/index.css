@@ -1,0 +1,17 @@
+body {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.products-container {
+    max-width: 1200px;
+    margin: 0 auto
+}
+
+logout-button {
+    float: right
+}
