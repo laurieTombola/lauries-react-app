@@ -1,12 +1,12 @@
 var React = require('react'),
-    Button = require('react-bootstrap/lib/Button'),
-    ButtonToolbar = require('react-bootstrap/lib/ButtonToolbar'),
     AddProduct = require('./add-product'),
+    ButtonBar = require('./products-button-bar'),
     Product = require('./product');
 
 class Products extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             showAddProduct: false,
             products: [
@@ -24,6 +24,7 @@ class Products extends React.Component {
         };
 
         //binding the functions so they can be seamlessly used as callbacks by child components (Product)
+        // for reasons behind that see https://online.reacttraining.com/
         this.removeHandler = this.removeHandler.bind(this);
         this.editHandler = this.editHandler.bind(this);
         this.toggleShowAddProduct = this.toggleShowAddProduct.bind(this);
@@ -86,13 +87,7 @@ class Products extends React.Component {
         return (
             <div className="products-container">
                 <h2>Products</h2>
-                <ButtonToolbar>
-                    <Button className="btn btn-large btn-success logout-button"
-                            onClick={this.toggleShowAddProduct}>
-                        Add
-                    </Button>
-                    <Button className="btn btn-large btn-danger logout-button " to="/">Logout</Button>
-                </ButtonToolbar>
+                <ButtonBar history={this.props.history} addHandler={this.toggleShowAddProduct}/>
                 <br/>
                 {showAddProduct && <AddProduct onAdd={this.addNewProduct}/>}
                 <br/>

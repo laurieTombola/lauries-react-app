@@ -1,6 +1,5 @@
 var React = require('react'),
-    Button = require('react-bootstrap/lib/Button'),
-    PropTypes = require('prop-types');
+    Button = require('react-bootstrap/lib/Button');
 
 class AddProduct extends React.Component {
     constructor(props) {

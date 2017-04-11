@@ -8,13 +8,39 @@ var React = require('react'),
     Login = require('./login');
 
 class App extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            userAuthenticated: false
+        };
+
+        this.authUser = this.authUser.bind(this);
+    }
+
+    authUser (login) {
+        this.setState({
+            userAuthenticated: login
+        })
+    }
+
+    createLoginTag (props) {
+        return (
+            <Login authUser={this.authUser} userAuthenticated={this.state.userAuthenticated} history={props.history}/>
+        )
+    }
+
+    createProductsTag (props) {
+        return (
+            <Products authUser={this.authUser} userAuthenticated={this.state.userAuthenticated} history={props.history}/>
+        )
+    }
+
     render() {
-        console.log(hashHistory)
         return (
         <Router history={hashHistory}>
             <div className="container">
-                <Route exact path="/" component={Login}/>
-                <Route path="/products" component={Products}/>
+                <Route exact path="/" component={this.createLoginTag.bind(this)}/>
+                <Route path="/products" component={this.createProductsTag.bind(this)}/>
             </div>
         </Router>
         )

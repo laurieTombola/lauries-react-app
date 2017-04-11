@@ -4,37 +4,72 @@ var React = require('react'),
     FormControl = require('react-bootstrap/lib/FormControl'),
     ControlLabel = require('react-bootstrap/lib/ControlLabel'),
     FormGroup = require('react-bootstrap/lib/FormGroup'),
-    Col = require('react-bootstrap/lib/Col'),
-    BrowserRouter = require('react-router-dom').BrowserRouter,
-    ReactDOM = require('react-dom');
+    Col = require('react-bootstrap/lib/Col');
 
 class Login extends React.Component {
     constructor (props) {
         super(props);
+
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            validUsers: [
+                {
+                    email: '1@1',
+                    password: '1'
+                },
+                {
+                    email: 'laurie.athey@outlook.com',
+                    password: 'employee_of_the_year'
+                },
+                {
+                    email: 'laurie.earned.this.job@zonal.com',
+                    password: 'YouKnowItsTrue!'
+                },
+                {
+                    email: 'something.witty@my.future.employer.com',
+                    password: 'hire_me_if_you_grinned!'
+                }
+            ]
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillMount () {
+        if (this.props.userAuthenticated) {
+            this.props.history.push('/products');
+        }
     }
 
     handleChange(event) {
         var newState = {};
 
         newState[event.target.type] = event.target.value;
-        console.log(newState)
-        this.setState(newState, function () {console.log(this.state)}.bind(this));
+        this.setState(newState);
+    }
+
+    handleSubmit (e) {
+        e.preventDefault();
+        var credentialsValid = this.state.validUsers.filter(function (user) {
+            return user.email === this.state.email && user.password === this.state.password;
+        }.bind(this)).length > 0;
+
+        if (credentialsValid) {
+            this.props.authUser(true);
+            this.props.history.push('/products')
+        }
     }
 
     render() {
         return (
             <div className="login-container">
-                <Form horizontal>
+                <Form horizontal onSubmit={this.handleSubmit}>
                     <h2>Please Sign In</h2>
                     <FormGroup controlId="formHorizontalEmail">
                         <Col componentClass={ControlLabel} sm={2}>
-                            Username
+                            Email
                         </Col>
                         <Col sm={10}>
                             <FormControl type="email" placeholder="Username" value={this.state.email} onChange={this.handleChange}/>
@@ -52,7 +87,7 @@ class Login extends React.Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button href="/products" type="submit" className="btn btn-lg btn-primary btn-block">
+                            <Button type="submit" className="btn btn-lg btn-primary btn-block">
                                 Sign in
                             </Button>
                         </Col>
@@ -67,14 +102,3 @@ class Login extends React.Component {
 }
 
 module.exports = Login;
-
-
-
-/*<form className="form-signin">
-    <h2 className="form-signin-heading">Please sign in</h2>
-    <label htmlFor="inputEmail" className="sr-only">Email address</label>
-    <input type="username" className="form-control" placeholder="Username" required autoFocus></input>
-    <label htmlFor="inputPassword" className="sr-only">Password</label>
-    <input type="password"  className="form-control" placeholder="Password" required></input>
-    <Button href={'/products'} className="btn btn-lg btn-primary btn-block" type="submit">Sign in</Button>
-</form>*/
