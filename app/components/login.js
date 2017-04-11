@@ -9,6 +9,7 @@ var React = require('react'),
 class Login extends React.Component {
     constructor (props) {
         super(props);
+
         this.state = {
             email: '',
             password: '',
@@ -36,12 +37,17 @@ class Login extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillMount () {
+        if (this.props.userAuthenticated) {
+            this.props.history.push('/products');
+        }
+    }
+
     handleChange(event) {
         var newState = {};
 
         newState[event.target.type] = event.target.value;
-        console.log(newState)
-        this.setState(newState, function () {console.log(this.state)}.bind(this));
+        this.setState(newState);
     }
 
     handleSubmit (e) {
@@ -51,6 +57,7 @@ class Login extends React.Component {
         }.bind(this)).length > 0;
 
         if (credentialsValid) {
+            this.props.authUser(true);
             this.props.history.push('/products')
         }
     }
