@@ -11,7 +11,7 @@ class ProductsButtonBar extends React.Component {
 
     handleLogout (e) {
         e.preventDefault();
-        console.log(this.props)
+        this.props.authUser(false);
         this.props.history.push('/');
     }
 

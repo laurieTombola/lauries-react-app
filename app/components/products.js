@@ -10,21 +10,31 @@ class Products extends React.Component {
         this.state = {
             showAddProduct: false,
             products: [
-                {
-                    id: 1,
-                    name: 'foo',
-                    price: 100
-                },
-                {
-                    id: 2,
-                    name: 'bar',
-                    price: 100
-                }
+                { id: 1, name: 'Play System 4 Pro', price: 348.99 },
+                { id: 2, name: 'Y Box 720', price: 218.99 },
+                { id: 3, name: 'uPhone 27', price: 12345221.99 },
+                { id: 4, name: 'Sungsam Universe T20', price: 149.99 },
+                { id: 5, name: 'foo', price: 100 },
+                { id: 6, name: 'bar', price: 100 },
+                { id: 7, name: 'baz', price: 100 },
+                { id: 8, name: 'qux', price: 100 },
+                { id: 9, name: 'quux', price: 100 },
+                { id: 10, name: 'corge', price: 100 },
+                { id: 11, name: 'grault', price: 100 },
+                { id: 12, name: 'garply', price: 100 },
+                { id: 13, name: 'waldo', price: 100 },
+                { id: 14, name: 'fred', price: 100 },
+                { id: 15, name: 'plugh', price: 100 },
+                { id: 16, name: 'xyzzy', price: 100 },
+                { id: 17, name: 'Clyde', price: 100 },
+                { id: 18, name: 'Blinky', price: 100 },
+                { id: 19, name: 'Pinky', price: 100 },
+                { id: 20, name: 'Inky', price: 100 },
             ]
         };
 
         //binding the functions so they can be seamlessly used as callbacks by child components (Product)
-        // for reasons behind that see https://online.reacttraining.com/
+        // for reasons behind that see https://online.reacttraining.com/courses/enrolled/50507
         this.removeHandler = this.removeHandler.bind(this);
         this.editHandler = this.editHandler.bind(this);
         this.toggleShowAddProduct = this.toggleShowAddProduct.bind(this);
@@ -32,8 +42,13 @@ class Products extends React.Component {
         this.editProduct = this.editHandler.bind(this);
     }
 
+    componentWillMount () {
+        if (!this.props.userAuthenticated) {
+            this.props.history.push('/');
+        }
+    }
+
     removeHandler(index) {
-        console.log(index)
         this.setState(function () {
             this.state.products.splice(index, 1);
             return {
@@ -43,7 +58,6 @@ class Products extends React.Component {
     }
 
     editHandler(index, newId, newName, newPrice) {
-        console.log('lolers')
         this.setState(function () {
             this.state.products[index] = {
                 id: newId,
@@ -87,7 +101,7 @@ class Products extends React.Component {
         return (
             <div className="products-container">
                 <h2>Products</h2>
-                <ButtonBar history={this.props.history} addHandler={this.toggleShowAddProduct}/>
+                <ButtonBar history={this.props.history} authUser={this.props.authUser} addHandler={this.toggleShowAddProduct}/>
                 <br/>
                 {showAddProduct && <AddProduct onAdd={this.addNewProduct}/>}
                 <br/>
