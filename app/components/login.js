@@ -17,6 +17,7 @@ class Login extends React.Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -27,14 +28,19 @@ class Login extends React.Component {
         this.setState(newState, function () {console.log(this.state)}.bind(this));
     }
 
+    handleSubmit (e) {
+        e.preventDefault();
+        this.props.history.push('/products')
+    }
+
     render() {
         return (
             <div className="login-container">
-                <Form horizontal>
+                <Form horizontal onSubmit={this.handleSubmit}>
                     <h2>Please Sign In</h2>
                     <FormGroup controlId="formHorizontalEmail">
                         <Col componentClass={ControlLabel} sm={2}>
-                            Username
+                            Email
                         </Col>
                         <Col sm={10}>
                             <FormControl type="email" placeholder="Username" value={this.state.email} onChange={this.handleChange}/>
@@ -52,7 +58,7 @@ class Login extends React.Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Button href="/products" type="submit" className="btn btn-lg btn-primary btn-block">
+                            <Button type="submit" className="btn btn-lg btn-primary btn-block">
                                 Sign in
                             </Button>
                         </Col>
