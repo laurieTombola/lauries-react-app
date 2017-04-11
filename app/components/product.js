@@ -57,7 +57,7 @@ function ProductRow(props) {
         <tr>
             <td>{props.product.id}</td>
             <td>{props.product.name}</td>
-            <td>{props.product.price}</td>
+            <td>£{props.product.price}</td>
             <td>
                 <Button className="btn btn-info"
                         onClick={props.editRow}>
@@ -125,12 +125,3 @@ class EditRow extends React.Component {
 
 
 module.exports = Product;
-
-/* <tr>
- <td>{this.props.product.id}</td>
- <td>{this.props.product.name}</td>
- <td>{this.props.product.price}</td>
- <td><Button className="" onClick={console.log.bind(null, 'edit')}>Edit</Button></td>
- <td><Button className=""
- onClick={this.props.removeHandler.bind(null, this.props.product.key)}>Remove</Button></td>
- </tr>*/
